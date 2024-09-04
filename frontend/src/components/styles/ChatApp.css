@@ -1,0 +1,10 @@
+/* styles/ChatApp.css */
+
+.chat-app {
+    background-color: #f0f2f5;
+    padding: 20px;
+    height: 70vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
