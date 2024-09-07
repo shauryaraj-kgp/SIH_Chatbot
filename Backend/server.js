@@ -58,6 +58,9 @@ app.post('/saveBooking/:dbName', async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 5000;
+// Use Vercel's port or 3000 if running locally
+const port = process.env.PORT || 5000;
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
