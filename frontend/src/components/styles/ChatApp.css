@@ -9,3 +9,16 @@
     width: 100%;
     box-sizing: border-box;
 }
+
+.bot-message-interactive {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    background-color: rgb(224, 230, 249);
+}
+
+.bot-message-interactive-contents {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

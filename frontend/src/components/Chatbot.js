@@ -21,6 +21,8 @@ const ChatBot = () => {
     const [numTickets, setNumTickets] = useState(0);
     const [totalPrice, setTotalPrice] = useState(0);
     const [customerData, setCustomerData] = useState({});
+    const [showDatePicker, setShowDatePicker] = useState(false);
+
 
     const handleUserInput = (e) => {
         setUserInput(e.target.value);
@@ -86,13 +88,13 @@ const ChatBot = () => {
                 }));
             }
 
-            // Ask for date and time selection
             setMessages(prevMessages => [
                 ...prevMessages,
-                { text: "Please select the date and time you'd like to visit:", sender: "bot" }
+                { text: "Please select the date and time you'd like to visit:", sender: "bot", type: "interactive" }
             ]);
 
-            setConversationStep(2); // Step for date and time selection
+            setShowDatePicker(true); // Show date picker
+            setConversationStep(2);
         } catch (error) {
             console.error("Error fetching info:", error);
             setMessages(prevMessages => [
@@ -101,6 +103,32 @@ const ChatBot = () => {
             ]);
         }
     };
+
+    const handleDateSelection = () => {
+        if (bookingDate && bookingTime) {
+            setMessages(prevMessages => [
+                ...prevMessages,
+                { text: `${bookingDate.toLocaleDateString()} at ${bookingTime}.`, sender: "user" },
+                { text: `You have selected ${bookingDate.toLocaleDateString()} at ${bookingTime}.`, sender: "bot" }
+            ]);
+            setCustomerData(prevData => ({
+                ...prevData,
+                bookingDateTime: `${bookingDate.toLocaleDateString()} ${bookingTime}`
+            }));
+            setShowDatePicker(false); // Hide date picker
+            setConversationStep(3);
+            setMessages(prevMessages => [
+                ...prevMessages,
+                { text: `The entry fee is $${entryFee}. How many tickets would you like to purchase?`, sender: "bot" }
+            ]);
+        } else {
+            setMessages(prevMessages => [
+                ...prevMessages,
+                { text: "Please select both a date and a time.", sender: "bot" }
+            ]);
+        }
+    };
+
 
     const saveCustomerData = async () => {
         try {
@@ -126,31 +154,7 @@ const ChatBot = () => {
         }
     };
 
-    const handleDateSelection = () => {
-        // Make sure both date and time are selected
-        if (bookingDate && bookingTime) {
-            // Update messages with selected date and time
-            setMessages(prevMessages => [
-                ...prevMessages,
-                { text: `${bookingDate.toLocaleDateString()} at ${bookingTime}.`, sender: "user" }
-            ]);
-            setCustomerData(prevData => ({
-                ...prevData,
-                bookingDateTime: `${bookingDate.toLocaleDateString()} ${bookingTime}`
-            }));
-            setConversationStep(3); // Move to ticket purchase step
-            setMessages(prevMessages => [
-                ...prevMessages,
-                { text: `The entry fee is $${entryFee}. How many tickets would you like to purchase?`, sender: "bot" }
-            ]);
-        } else {
-            // Show a message prompting the user to select both
-            setMessages(prevMessages => [
-                ...prevMessages,
-                { text: "Please select both a date and a time.", sender: "bot" }
-            ]);
-        }
-    };
+
 
     // Time options for dropdown
     const timeOptions = [
@@ -169,27 +173,17 @@ const ChatBot = () => {
         <div className="chatbot-wrapper">
             <div className="chatbot-container">
                 <Navbar />
-                <ChatApp messages={messages} />
+                <ChatApp
+                    messages={messages}
+                    showDatePicker={showDatePicker}
+                    bookingDate={bookingDate}
+                    handleDateChange={handleDateChange}
+                    bookingTime={bookingTime}
+                    handleTimeChange={handleTimeChange}
+                    handleDateSelection={handleDateSelection}
+                />
                 <div className="chatbot-input">
-                    {/* Conditionally render the date picker and time dropdown in the chat */}
-                    {conversationStep === 2 ? (
-                        <div className="bot-message">
-                            <DatePicker
-                                selected={bookingDate}
-                                onChange={handleDateChange}
-                                placeholderText="Select a date"
-                                className="datepicker-input"
-                            />
-                            <select value={bookingTime} onChange={handleTimeChange} className="time-dropdown">
-                                <option value="" disabled>Select a time</option>
-                                {timeOptions.map((time, index) => (
-                                    <option key={index} value={time}>{time}</option>
-                                ))}
-                            </select>
-                            <button onClick={handleDateSelection}>Submit</button>
-                        </div>
-
-                    ) : (
+                    {conversationStep !== 2 && (
                         <>
                             <input
                                 type="text"
@@ -197,7 +191,7 @@ const ChatBot = () => {
                                 onChange={handleUserInput}
                                 onKeyDown={handleKeyPress}
                                 placeholder="Type a message..."
-                                disabled={conversationStep === 2} // Disable input when in step 2
+                                disabled={conversationStep === 2}
                             />
                             <button onClick={handleSend}>Send</button>
                         </>
@@ -206,6 +200,7 @@ const ChatBot = () => {
             </div>
         </div>
     );
+
 };
 
 export default ChatBot;
