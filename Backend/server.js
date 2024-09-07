@@ -32,6 +32,10 @@ const customerSchema = new mongoose.Schema({
 // Define models (if necessary)
 const Info = mongoose.model('Info', infoSchema);
 
+app.get('/', (req, res) => {
+    res.json("Hello");
+})
+
 app.get('/getInfo/:dbName', async (req, res) => {
     const dbName = req.params.dbName;
     try {
