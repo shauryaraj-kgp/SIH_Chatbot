@@ -32,8 +32,8 @@ const ChatBot = () => {
 
             if (conversationStep === 1) {
                 // Step 1: Get museum name
-                setDbName(userInput);
-                fetchInfo(userInput);
+                setDbName(userInput.toLowerCase().replace(/\s+/g, '_'));
+                fetchInfo(userInput.toLowerCase().replace(/\s+/g, '_'));
             } else if (conversationStep === 3) {
                 // Step 3: Get number of tickets
                 const tickets = parseInt(userInput);
