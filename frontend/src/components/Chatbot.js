@@ -60,7 +60,7 @@ const ChatBot = () => {
                         ...prevMessages,
                         { text: "Great! Your booking is confirmed. Redirecting to payment gateway...", sender: "bot" }
                     ]);
-
+            
                     // Redirect to the Razorpay payment gateway link
                     window.location.href = "https://razorpay.me/@nandani3570";
                 } else {
@@ -78,7 +78,7 @@ const ChatBot = () => {
 
     const fetchInfo = async (dbName) => {
         try {
-            const response = await fetch(`https://sih-chatbot-backend.vercel.app/getInfo/${dbName}`);
+            const response = await fetch(`http://localhost:5000/getInfo/${dbName}`);
             const data = await response.json();
 
             if (data.length > 0) {
@@ -135,7 +135,7 @@ const ChatBot = () => {
 
     const saveCustomerData = async () => {
         try {
-            const response = await fetch(`https://sih-chatbot-backend.vercel.app/saveBooking/${dbName}`, {
+            const response = await fetch(`http://localhost:5000/saveBooking/${dbName}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(customerData)

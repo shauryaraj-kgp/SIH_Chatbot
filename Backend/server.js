@@ -5,13 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
 
-app.use(cors(
-    {
-        origin: ["https://sih-chatbot-blush.vercel.app"],
-        methods: ['POST', 'GET'],
-        credentials: true
-    }
-));
+app.use(cors());
 app.use(express.json());
 
 mongoose.connect('mongodb+srv://shauryaraj694:q5nZBvDacu0tS3ZY@museum-cluster.8nllv.mongodb.net/?retryWrites=true&w=majority&appName=museum-cluster')
