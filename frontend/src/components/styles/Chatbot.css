@@ -1,66 +1,66 @@
-/* src/components/ChatBot.css */
-
-.chatbot-container {
-    width: 30vw;
-    height: 99vh;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    font-family: Arial, sans-serif;
-}
-
-.chatbot-wrapper {
+/* Flexbox container for the bot message */
+.bot-message {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
 }
 
-.chatbot-messages {
-    padding: 10px;
-    height: 70vh;
-    overflow-y: auto;
-    background-color: #fff;
+/* Adjust date and time inputs */
+.datepicker-input,
+.time-dropdown {
+    width: 100px;
+    padding: 6px;
+    font-size: 12px;
 }
 
-.message {
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 8px;
-    width: fit-content;
+/* Button size */
+.bot-message button {
+    padding: 8px 16px;
+    font-size: 14px;
+    min-width: 80px;
 }
 
-.message.bot {
-    background-color: #e0e0e0;
-    align-self: flex-start;
-}
-
-.message.user {
-    background-color: #007bff;
-    color: white;
-    align-self: flex-end;
-}
-
+/* Chatbot input container */
 .chatbot-input {
     display: flex;
     border-top: 1px solid #ccc;
     background-color: #f7f7f7;
     padding: 10px;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
 }
 
+/* Make the input field take most of the space */
 .chatbot-input input {
-    flex: 1;
+    flex-grow: 1;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 14px;
+    margin-right: 10px;
 }
 
+/* Larger button for mobile */
 .chatbot-input button {
-    padding: 8px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    margin-left: 10px;
-    cursor: pointer;
+    padding: 8px 16px;
+    font-size: 14px;
+    min-width: 90px;
+}
+
+/* Button hover effect */
+.chatbot-input button:hover {
+    background-color: #0056b3;
+}
+
+/* For larger screens, adjust button size */
+@media (min-width: 768px) {
+
+    .bot-message button,
+    .chatbot-input button {
+        padding: 10px 20px;
+        font-size: 16px;
+        min-width: 100px;
+    }
 }

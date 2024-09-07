@@ -1,10 +1,18 @@
-/* styles/ChatApp.css */
-
+/* Container of the chat app */
 .chat-app {
     background-color: #f0f2f5;
-    padding: 20px;
-    height: 70vh;
+    padding: 10px;
+    height: 60vh;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Adjust the height of the chat app on mobile */
+@media (min-width: 768px) {
+    .chat-app {
+        height: 70vh;
+    }
 }
