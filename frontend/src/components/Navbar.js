@@ -1,5 +1,5 @@
 import './styles//Navbar.css';
-// import React, { useState } from 'react';
+import React from 'react';
 import BotImage from "./images/Bot.png"
 
 const Navbar = () => {
