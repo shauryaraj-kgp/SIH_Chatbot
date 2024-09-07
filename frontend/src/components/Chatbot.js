@@ -58,6 +58,9 @@ const ChatBot = () => {
                         ...prevMessages,
                         { text: "Great! Your booking is confirmed. Redirecting to payment gateway...", sender: "bot" }
                     ]);
+            
+                    // Redirect to the Razorpay payment gateway link
+                    window.location.href = "https://razorpay.me/@nandani3570";
                 } else {
                     setMessages(prevMessages => [
                         ...prevMessages,
