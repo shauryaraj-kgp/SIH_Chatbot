@@ -6,11 +6,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb+srv://shauryaraj694:q5nZBvDacu0tS3ZY@museum-cluster.8nllv.mongodb.net/?retryWrites=true&w=majority&appName=museum-cluster', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => console.log("MongoDB connected"))
+mongoose.connect('mongodb+srv://shauryaraj694:q5nZBvDacu0tS3ZY@museum-cluster.8nllv.mongodb.net/?retryWrites=true&w=majority&appName=museum-cluster')
+    .then(() => console.log("MongoDB connected"))
     .catch(err => console.log(err));
+
 
 const infoSchema = new mongoose.Schema({
     showName: String,
