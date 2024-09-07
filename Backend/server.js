@@ -14,9 +14,39 @@ app.use(cors(
 ));
 app.use(express.json());
 
-mongoose.connect('mongodb+srv://shauryaraj694:q5nZBvDacu0tS3ZY@museum-cluster.8nllv.mongodb.net/?retryWrites=true&w=majority&appName=museum-cluster')
+const mongoose = require('mongoose');
+
+let isConnected;
+
+async function connectToDatabase() {
+    if (isConnected) {
+        console.log("=> using existing database connection");
+        return mongoose.connection;
+    }
+
+    console.log("=> using new database connection");
+    await mongoose.connect(process.env.MONGODB_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        serverSelectionTimeoutMS: 5000 // Optional: Adjust this value to handle connection times
+    });
+
+    isConnected = mongoose.connection.readyState;
+    return mongoose.connection;
+}
+
+module.exports = connectToDatabase;
+
+
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    connectTimeoutMS: 20000, // 20 seconds
+    socketTimeoutMS: 45000, // 45 seconds
+})
     .then(() => console.log("MongoDB connected"))
     .catch(err => console.log(err));
+
 
 // Define schemas (if necessary)
 const infoSchema = new mongoose.Schema({
