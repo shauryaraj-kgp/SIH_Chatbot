@@ -2,7 +2,7 @@
 .chat-app {
     background-color: #f0f2f5;
     padding: 10px;
-    height: 75vh;
+    min-height: 75vh;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
