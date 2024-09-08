@@ -10,11 +10,27 @@
     box-sizing: border-box;
 }
 
+.bot-message-interactive-contents-1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bot-message-interactive button {
+    width: 10px;
+    font-size: 15px;
+    margin-top: 15px;
+}
+
 .bot-message-interactive {
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
     margin: 20px;
     background-color: rgb(224, 230, 249);
+    padding: 20px 20px;
+    border-radius: 20px;
 }
 
 .bot-message-interactive-contents {

@@ -13,19 +13,21 @@ const ChatApp = ({ messages, showDatePicker, bookingDate, handleDateChange, book
             {showDatePicker && (
                 <div className="bot-message">
                     <div className="bot-message-interactive">
-                        <div className="bot-message-interactive-contents">
-                            <DatePicker
-                                selected={bookingDate}
-                                onChange={handleDateChange}
-                                placeholderText="Select a date"
-                                className="datepicker-input"
-                            />
-                            <select value={bookingTime} onChange={handleTimeChange} className="time-dropdown">
-                                <option value="" disabled>Select a time</option>
-                                {["10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM"].map((time, index) => (
-                                    <option key={index} value={time}>{time}</option>
-                                ))}
-                            </select>
+                        <div className="bot-message-interactive-contents-1">
+                            <div className="bot-message-interactive-contents">
+                                <DatePicker
+                                    selected={bookingDate}
+                                    onChange={handleDateChange}
+                                    placeholderText="Select a date"
+                                    className="datepicker-input"
+                                />
+                                <select value={bookingTime} onChange={handleTimeChange} className="time-dropdown">
+                                    <option value="" disabled>Select a time</option>
+                                    {["10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM"].map((time, index) => (
+                                        <option key={index} value={time}>{time}</option>
+                                    ))}
+                                </select>
+                            </div>
                         </div>
                         <button onClick={handleDateSelection}>Submit</button>
                     </div>
