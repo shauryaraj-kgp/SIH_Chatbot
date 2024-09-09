@@ -1,42 +1,72 @@
-/* styles/Message.css */
+/* Import a modern font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
+/* Container for each message */
 .message-container {
     display: flex;
     align-items: flex-start;
-    margin: 5px 15px;
+    margin: 8px 15px;
+    animation: fadeIn 0.3s ease-in-out;
+    font-family: 'Roboto', sans-serif;
 }
 
+/* Bot message alignment */
 .bot-message {
     justify-content: flex-start;
 }
 
+/* User message alignment */
 .user-message {
     justify-content: flex-end;
 }
 
+/* Avatar styling */
 .message-avatar {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    margin-right: 10px;
+    margin-right: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Message content container */
 .message-content {
-    max-width: 60%;
-    padding: 10px 15px;
+    max-width: 65%;
+    padding: 12px 18px;
     border-radius: 20px;
-    font-size: 14px;
-    line-height: 1.4;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: 15px;
+    line-height: 1.6;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
 }
 
+/* Styling for bot messages */
 .bot-message .message-content {
-    background-color: rgb(224, 230, 249);
-    color: #000;
+    background-color: #f1f1f1;
+    color: #333;
+    border-top-left-radius: 0;
+    border: 1px solid #e0e0e0;
+    font-weight: 500; /* Slightly bolder for bot messages */
 }
 
+/* Styling for user messages */
 .user-message .message-content {
-    background-color: #0084ff;
+    background-color: #4a90e2;
     color: #fff;
     border-top-right-radius: 0;
+    border: 1px solid #357ab7;
+    font-weight: 500; /* Slightly bolder for user messages */
+}
+
+/* Add subtle fade-in animation for messages */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

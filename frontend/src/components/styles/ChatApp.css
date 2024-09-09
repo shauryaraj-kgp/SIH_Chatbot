@@ -1,40 +1,91 @@
 /* Container of the chat app */
 .chat-app {
-    background-color: #f0f2f5;
-    padding: 10px;
+    background-color: #f7f9fc;
+    padding: 20px;
     min-height: 75vh;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     width: 100%;
     box-sizing: border-box;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.bot-message-interactive-contents-1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.bot-message-interactive button {
-    width: 10px;
-    font-size: 15px;
-    margin-top: 15px;
-}
-
+/* Styling for the interactive bot message container */
 .bot-message-interactive {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin: 20px;
-    background-color: rgb(224, 230, 249);
-    padding: 20px 20px;
-    border-radius: 20px;
+    margin: 20px 0;
+    background-color: #e8f1fd;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #d0e2ff;
 }
 
 .bot-message-interactive-contents {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.datepicker-input {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #b0c4de;
+    border-radius: 5px;
+    width: 150px;
+}
+
+.time-dropdown {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #b0c4de;
+    border-radius: 5px;
+    width: 150px;
+}
+
+/* Styling for the submit button */
+.bot-message-interactive button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.bot-message-interactive button:hover {
+    background-color: #357ab7;
+}
+
+/* Styling for messages in the chat */
+.message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 60%;
+    word-wrap: break-word;
+}
+
+.message.sender {
+    background-color: #d1eaff;
+    align-self: flex-end;
+}
+
+.message.bot {
+    background-color: #f1f1f1;
+    align-self: flex-start;
+}
+
+/* Styling for Message component */
+.bot-message {
+    margin-top: auto;
 }

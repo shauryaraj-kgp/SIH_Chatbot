@@ -9,9 +9,9 @@
 /* Adjust date and time inputs */
 .datepicker-input,
 .time-dropdown {
-    width: 100px;
+    width: 120px; /* Increase width */
     margin: 6px;
-    font-size: 12px;
+    font-size: 14px; /* Slightly larger font size */
 }
 
 /* Button size */
@@ -24,49 +24,172 @@
 /* Chatbot input container */
 .chatbot-input {
     display: flex;
-    border-top: 1px solid #ccc;
-    background-color: #f7f7f7;
-    padding: 10px;
+    border-top: 1px solid #ddd;
+    background-color: #fff;
+    padding: 12px;
     justify-content: space-between;
     width: 100%;
     box-sizing: border-box;
+    box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 15px 15px;
 }
 
-/* Make the input field take most of the space */
+/* Input field styles */
 .chatbot-input input {
     flex-grow: 1;
-    padding: 8px;
-    padding-left: 15px;
-    border: 1px solid #ccc;
-    border-radius: 40px;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
     font-size: 14px;
     margin-right: 10px;
-    box-shadow: 0px 0px 3px black;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* Change input border color on focus */
+.chatbot-input input:focus {
+    border-color: #007bff;
 }
 
 /* Larger button for mobile */
 .chatbot-input button {
-    background-color: rgb(224, 230, 249);
-    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 25px;
     font-size: 14px;
-    min-width: 90px;
-    border-radius: 20px;
-    border-color: transparent;
-    box-shadow: 0px 0px 3px black;
+    cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
 }
 
-/* Button hover effect */
+/* Hover effect */
 .chatbot-input button:hover {
     background-color: #0056b3;
 }
 
-/* For larger screens, adjust button size */
-@media (min-width: 768px) {
+/* Message bubble for bot */
+.message.bot {
+    background-color: #007bff;
+    color: white;
+    align-self: flex-start;
+    padding: 10px;
+    border-radius: 15px;
+    margin: 8px;
+    max-width: 70%;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
 
-    .bot-message button,
-    .chatbot-input button {
-        padding: 10px 20px;
-        font-size: 16px;
-        min-width: 100px;
-    }
+/* Apply scale effect on hover */
+.message.bot:hover {
+    transform: scale(1.05);
+}
+
+/* Message bubble for user */
+.message.user {
+    background-color: #f1f1f1;
+    align-self: flex-end;
+    padding: 10px;
+    border-radius: 15px;
+    margin: 8px;
+    max-width: 70%;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* For interactive content */
+.message.interactive {
+    background-color: #fffae6;
+    color: #333;
+    padding: 10px;
+    border-radius: 15px;
+    margin: 8px;
+    max-width: 70%;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Date picker container */
+.datepicker-container {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px; /* Increase width */
+}
+
+/* Calendar styling */
+/* Customize the date picker */
+.react-datepicker__triangle {
+    display: none; /* Hide the default triangle */
+}
+
+.react-datepicker__header {
+    background-color: #4a90e2; /* Blue background for header */
+    color: white; /* White text for the header */
+    border-bottom: 1px solid #357ab7; /* Border under the header */
+    padding: 8px; /* Adjust padding for better spacing */
+    font-size: 12px; /* Larger font size for the month */
+    text-align: center; /* Center align text */
+}
+
+.react-datepicker__current-month {
+    font-size: 18px; /* Larger font size for the month */
+}
+
+.react-datepicker__day-names {
+    font-weight: bold; /* Bold font for day names */
+}
+
+.react-datepicker__day {
+    font-size: 14px; /* Font size for days */
+}
+
+.react-datepicker__day--selected, .react-datepicker__day--keyboard-selected {
+    background-color: #357ab7; /* Highlight selected day */
+    color: white; /* White text for selected day */
+    border-radius: 50%; /* Round selection */
+}
+
+.react-datepicker__day--today {
+    font-weight: bold; /* Bold font for today's day */
+}
+
+/* Time dropdown styling */
+.time-dropdown {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 14px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+.time-dropdown:focus {
+    border-color: #4a90e2; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Custom styling for the DatePicker input */
+.datepicker-input {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 14px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+.datepicker-input:focus {
+    border-color: #4a90e2; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Placeholder for sending an image preview */
+img.preview {
+    max-width: 100%;
+    border-radius: 15px;
+    margin: 8px 0;
 }

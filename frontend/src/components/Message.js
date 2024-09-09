@@ -1,5 +1,3 @@
-// src/components/Message.js
-
 import React from 'react';
 import './styles/Message.css';
 import BotImage from "./images/Bot.png";

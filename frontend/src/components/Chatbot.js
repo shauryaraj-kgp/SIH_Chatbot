@@ -8,21 +8,35 @@ import 'react-datepicker/dist/react-datepicker.css';
 const ChatBot = () => {
     const [messages, setMessages] = useState([
         {
-            text: "Hello, I'm ChatBot! 👋 I'm your personal assistant for today. Which museum would you like to visit?",
+            text: "👋 Hey there! Ready to explore some art? Which museum is calling your name today?",
             sender: "bot"
         }
     ]);
     const [userInput, setUserInput] = useState("");
     const [dbName, setDbName] = useState("");
     const [conversationStep, setConversationStep] = useState(1);
-    const [bookingDate, setBookingDate] = useState(null); // For storing selected date
-    const [bookingTime, setBookingTime] = useState(""); // For storing selected time
+    const [bookingDate, setBookingDate] = useState(null);
+    const [bookingTime, setBookingTime] = useState("");
     const [entryFee, setEntryFee] = useState(0);
     const [numTickets, setNumTickets] = useState(0);
     const [totalPrice, setTotalPrice] = useState(0);
     const [customerData, setCustomerData] = useState({});
     const [showDatePicker, setShowDatePicker] = useState(false);
 
+    const formatDate = (date) => {
+        const day = date.getDate();
+        const month = date.toLocaleString('default', { month: 'short' });
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+
+        const suffix = day % 10 === 1 && day !== 11 ? 'st' :
+                       day % 10 === 2 && day !== 12 ? 'nd' :
+                       day % 10 === 3 && day !== 13 ? 'rd' : 'th';
+
+        const formattedDate = `${day}${suffix} ${month}`;
+        const formattedTime = `${hours % 12 || 12}:${minutes < 10 ? '0' : ''}${minutes} ${hours >= 12 ? 'PM' : 'AM'}`;
+        return `${formattedDate}, ${formattedTime}`;
+    };
 
     const handleUserInput = (e) => {
         setUserInput(e.target.value);
@@ -33,11 +47,9 @@ const ChatBot = () => {
             setMessages([...messages, { text: userInput, sender: "user" }]);
 
             if (conversationStep === 1) {
-                // Step 1: Get museum name
                 setDbName(userInput.toLowerCase().replace(/\s+/g, '_'));
                 fetchInfo(userInput.toLowerCase().replace(/\s+/g, '_'));
             } else if (conversationStep === 3) {
-                // Step 3: Get number of tickets
                 const tickets = parseInt(userInput);
                 setNumTickets(tickets);
                 const total = tickets * entryFee;
@@ -50,26 +62,23 @@ const ChatBot = () => {
                 setConversationStep(4);
                 setMessages(prevMessages => [
                     ...prevMessages,
-                    { text: `The total price is $${total}. Would you like to proceed with the payment? (yes/no)`, sender: "bot" }
+                    { text: `Awesome! That's $${total} for ${tickets} tickets. Ready to confirm and lock this in? (yes/no)`, sender: "bot" }
                 ]);
             } else if (conversationStep === 4) {
-                // Step 4: Confirm payment
                 if (userInput.toLowerCase() === 'yes') {
                     saveCustomerData();
                     setMessages(prevMessages => [
                         ...prevMessages,
-                        { text: "Great! Your booking is confirmed. Redirecting to payment gateway...", sender: "bot" }
+                        { text: "✨ Fantastic! Your booking is confirmed. Get ready to explore some amazing art. Redirecting to payment...", sender: "bot" }
                     ]);
-            
-                    // Redirect to the Razorpay payment gateway link
                     window.location.href = "https://razorpay.me/@nandani3570";
                 } else {
                     setMessages(prevMessages => [
                         ...prevMessages,
-                        { text: "No problem. Let me know if you need anything else.", sender: "bot" }
+                        { text: "No worries! I'm here if you need anything else. 😊", sender: "bot" }
                     ]);
                 }
-                setConversationStep(1); // Reset to the initial state
+                setConversationStep(1);
             }
 
             setUserInput("");
@@ -93,45 +102,48 @@ const ChatBot = () => {
 
             setMessages(prevMessages => [
                 ...prevMessages,
-                { text: "Please select the date and time you'd like to visit:", sender: "bot", type: "interactive" }
+                { text: "🗓️ Sweet! Let's pick a date and time for your visit:", sender: "bot", type: "interactive" }
             ]);
 
-            setShowDatePicker(true); // Show date picker
+            setShowDatePicker(true);
             setConversationStep(2);
         } catch (error) {
             console.error("Error fetching info:", error);
             setMessages(prevMessages => [
                 ...prevMessages,
-                { text: "Sorry, I couldn't find that museum. Please try again.", sender: "bot" }
+                { text: "Oops! I couldn't find that museum. Maybe try another one?", sender: "bot" }
             ]);
         }
     };
 
     const handleDateSelection = () => {
         if (bookingDate && bookingTime) {
+            const formattedDate = formatDate(new Date(`${bookingDate.toDateString()} ${bookingTime}`));
+
             setMessages(prevMessages => [
                 ...prevMessages,
-                { text: `${bookingDate.toLocaleDateString()} at ${bookingTime}.`, sender: "user" },
-                { text: `You have selected ${bookingDate.toLocaleDateString()} at ${bookingTime}.`, sender: "bot" }
+                { text: `${formattedDate}.`, sender: "user" },
+                { text: `You've selected ${formattedDate}. Great choice!`, sender: "bot" }
             ]);
+
             setCustomerData(prevData => ({
                 ...prevData,
-                bookingDateTime: `${bookingDate.toLocaleDateString()} ${bookingTime}`
+                bookingDateTime: formattedDate
             }));
-            setShowDatePicker(false); // Hide date picker
+
+            setShowDatePicker(false);
             setConversationStep(3);
             setMessages(prevMessages => [
                 ...prevMessages,
-                { text: `The entry fee is $${entryFee}. How many tickets would you like to purchase?`, sender: "bot" }
+                { text: `The entry fee is $${entryFee}. How many tickets are we grabbing today? 🎟️`, sender: "bot" }
             ]);
         } else {
             setMessages(prevMessages => [
                 ...prevMessages,
-                { text: "Please select both a date and a time.", sender: "bot" }
+                { text: "Don't forget to pick both a date and time!", sender: "bot" }
             ]);
         }
     };
-
 
     const saveCustomerData = async () => {
         try {
@@ -146,7 +158,7 @@ const ChatBot = () => {
             console.error("Error saving booking data:", error);
             setMessages(prevMessages => [
                 ...prevMessages,
-                { text: "There was an error saving your booking. Please try again.", sender: "bot" }
+                { text: "Hmm, something went wrong while saving your booking. Let's try again.", sender: "bot" }
             ]);
         }
     };
@@ -157,9 +169,6 @@ const ChatBot = () => {
         }
     };
 
-
-
-    // Time options for dropdown
     const timeOptions = [
         "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM"
     ];
@@ -203,7 +212,6 @@ const ChatBot = () => {
             </div>
         </div>
     );
-
 };
 
 export default ChatBot;
